@@ -5,14 +5,15 @@ Gameplan:
 ✔ 2. Define data model. Drinks will have name, price, and initialStock.
     - Do we need to separate out the data model? It's just one model used for one service. Let's just keep it simple.
 ✔ 3. Define the core business. drink inventory, coins.
-4. Logic to make vending machine work (I forgot to make service file in Step 1)
+⏱︎ 4. Logic to make vending machine work (I forgot to make service file in Step 1)
     - get inventory
     - get item
     - insert coin ($0.25 each)
-    - return coin (any leftover coins)
-    - buy drink [ this needs more logic but come back to this ] - success: right number of coins (no change), too many coins (yes change). fail: not enough coins (yes change), not enough inventory. 
-5. Setup express server and middleware.
-6. Write the API routes.
+    - return coin (any invalid coins)
+    - buy drink - check if valid drink; if valid, check if enough inventory; then check input coins vs cost; 
+        - successfully buying the drink: remove from inventory, determine change (coins - price), reset coins
+✔ 5. Setup express server and middleware.
+⏱︎ 6. Write the API routes.
 7. Frontend: define state management. 
     - coins
     - drinks
