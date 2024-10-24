@@ -31,7 +31,14 @@ app.get('/inventory', (req, res) => {
 
 // GET '/inventory/:id' - 200 - Get drink quantity
 app.get('inventory/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const quantity = vendingMachine.getInventoryItem(id);
 
+    if (quantity === null) {
+        return res.status(404).send();
+    }
+
+    res.status(200).json(quantity);
 })
 
 
