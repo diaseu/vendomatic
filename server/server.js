@@ -25,7 +25,8 @@ app.put('/', (req, res) => {
 
 // DELETE '/' - 204
 app.delete('/', (req, res) => {
-
+    const coinsReturned = vendingMachine.returnCoins();
+    res.setHeader('X-Coins', coinsReturned);
     res.status(204).send();
 })
 
