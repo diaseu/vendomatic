@@ -48,21 +48,26 @@ app.get('inventory/:id', (req, res) => {
     res.status(200).json(quantity);
 })
 
-
-
 // PUT '/inventory/:id' - 200, 403, 404
 app.put('/inventory/:id', (req, res) => {
     // PUT '/inventory/:id' - 404
-
-    res.status(404).send();
+    if (result.error === 'invalid_drink' || result.error === 'out_of_stock') {
+        res.setHeader('X-Coins', result.coinsReturned)
+        res.status(404).send();
+    }
 
     // PUT '/inventory/:id' - 403
-
-    res.status(403).send();
+    if (result.error === 'insufficient funds') {
+        res.setHeader('X-Coins', result.coinsReturned)
+        res.status(403).send();
+    }
 
     // PUT '/inventory/:id' - 200
-
-    res.status(200).send();
+    res.setHeader('X-Coins', result.change);
+    res.setHeader('X-Inventory-Remaining', result.remainingQuantity);
+    res.status(200).json({
+        quantity: 1
+    });
 })
 
 
