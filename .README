@@ -3,11 +3,14 @@ Vend-O-Matic
 Gameplan:
 ✔ 1. Start with initiating all the necessary files first. Use minimal dependencies (though I'll use tailwind). Can start skeleton, but don't go beyond that yet.
 ✔ 2. Define data model. Drinks will have name, price, and initialStock.
-3. Define the core business as application state. inventory, coins.
-4. Logic to make vending machine work:
+    - Do we need to separate out the data model? It's just one model used for one service. Let's just keep it simple.
+✔ 3. Define the core business. drink inventory, coins.
+4. Logic to make vending machine work (I forgot to make service file in Step 1)
+    - get inventory
+    - get item
     - insert coin ($0.25 each)
-    - buy drink [ this needs more logic but come back to this ] - success: right number of coins (no change), too many coins (yes change). fail: not enough coins (yes change), not enough inventory. 
     - return coin (any leftover coins)
+    - buy drink [ this needs more logic but come back to this ] - success: right number of coins (no change), too many coins (yes change). fail: not enough coins (yes change), not enough inventory. 
 5. Setup express server and middleware.
 6. Write the API routes.
 7. Frontend: define state management. 
