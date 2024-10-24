@@ -7,8 +7,12 @@ const VendingMachine = () => {
         // only quarters accepted, only one at a time
         // only 1 beverage per transaction
         // Unused quarters returned to user
-        <div>
+        <div className="max-w-lg flex flex-col">
             <h1>Vend-O-Matic</h1>
+            <div className="flex flex-row ">
+                <div>Drink Menu</div>
+                <div>Coin Interface</div>
+            </div>
         </div>
     )
 };
