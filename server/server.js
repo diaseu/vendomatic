@@ -11,9 +11,15 @@ app.use(cors({
 }));
 
 // Define Necessary Routes here
-// PUT '/' - 204
+// PUT '/' - 204 - Insert Coin
 app.put('/', (req, res) => {
-
+    const { coin } = req.body;
+    // Only one coin at a time
+    if (coin !==1 ) {
+        return res.status(400).json({error: 'Invalid coin value'})
+    }
+    const totalCoins = vendingMachine.insertCoin();
+    res.setHeader('X-Coins', totalCoins)
     res.status(204).send();
 })
 
