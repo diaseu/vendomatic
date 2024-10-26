@@ -30,10 +30,17 @@ app.delete('/', (req, res) => {
     res.status(204).send();
 })
 
-// GET '/inventory' - 200 - Get all inventory
+// GET '/inventory' - 200 - Get all inventory - the requirements restrict this to only returning the quantity.
 app.get('/inventory', (req, res) => {
-    const inventory = vendingMachine.getInventory();
-    res.status(200).json(inventory);
+    const quantities = vendingMachine.getInventory();
+    res.status(200).json(quantities);
+})
+
+// How about we make a new route for getting the "static" details, like name and price
+// That way we can keep the info in the data model
+app.get('/inventory/details', (req, res) => {
+    const details = vendingMachine.getDetails();
+    res.status(200).json(details);
 })
 
 // GET '/inventory/:id' - 200 - Get drink quantity
@@ -50,6 +57,9 @@ app.get('inventory/:id', (req, res) => {
 
 // PUT '/inventory/:id' - 200, 403, 404
 app.put('/inventory/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const result = vendingMachine.purchase(id);
+    
     // PUT '/inventory/:id' - 404
     if (result.error === 'invalid_drink' || result.error === 'out_of_stock') {
         res.setHeader('X-Coins', result.coinsReturned)
