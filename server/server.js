@@ -63,13 +63,13 @@ app.put('/inventory/:id', (req, res) => {
     // PUT '/inventory/:id' - 404
     if (result.error === 'invalid_drink' || result.error === 'out_of_stock') {
         res.setHeader('X-Coins', result.coinsReturned)
-        res.status(404).send();
+        return res.status(404).send();
     }
 
     // PUT '/inventory/:id' - 403
-    if (result.error === 'insufficient funds') {
+    if (result.error === 'insufficient_funds') {
         res.setHeader('X-Coins', result.coinsReturned)
-        res.status(403).send();
+        return res.status(403).send();
     }
 
     // PUT '/inventory/:id' - 200

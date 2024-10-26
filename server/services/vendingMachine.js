@@ -66,9 +66,11 @@ class VendingMachineService {
     purchase(id) {
         // does drink exist
         if (id < 0 || id >= DRINKS.length) {
+            const changeToReturn = this.state.coins;
+            this.state.coins = 0; // reset
             return {
                 error: 'invalid_drink',
-                coinsReturned: this.state.coins
+                coinsReturned: coinsToReturn
             }
         }
 
@@ -76,17 +78,21 @@ class VendingMachineService {
 
         // check inventory stock (not enough inventory)
         if (drink.quantity === 0) {
+            const changeToReturn = this.state.coins;
+            this.state.coins = 0; // reset
             return {
                 error: 'out_of_stock',
-                coinsReturned: this.state.coins
+                coinsReturned: changeToReturn
             }
         }
 
         // check coins input vs cost (not enough coins)
         if (this.state.coins < drink.price) {
+            const changeToReturn = this.state.coins;
+            this.state.coins = 0; // reset
             return{
                 error: 'insufficient_funds',
-                coinsReturned: this.state.coins
+                coinsReturned: changeToReturn
             }
         }
 
