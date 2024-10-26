@@ -26,7 +26,7 @@ const VendingMachine = () => {
       setDrinks(drinksWithQuantities);
       setIsLoading(false);
     } catch (error) {
-      setMessage('Error fetching data');
+      setMessage('❌ Error fetching data');
       setIsLoading(false);
     }
   };
@@ -44,10 +44,10 @@ const VendingMachine = () => {
       });
       const coins = parseInt(res.headers.get('X-Coins'));
       setQuarters(coins);
-      setMessage('Quarter inserted!');
+      setMessage('🪙 Quarter inserted!');
       setChange(0);
     } catch (error) {
-      setMessage('Error inserting quarter');
+      setMessage('❌ Error inserting quarter');
     }
   };
 
@@ -62,13 +62,13 @@ const VendingMachine = () => {
       setQuarters(0);
 
       if (res.status === 404) {
-        setMessage('Item out of stock');
+        setMessage('❌ Item out of stock');
         return;
       }
 
       if (res.status === 403) {
         const drink = drinks[id];
-        setMessage(`Need ${drink.price} quarters ($${(drink.price * 0.25).toFixed(2)})`);
+        setMessage(`❗️ Insufficient funds. Need ${drink.price} quarters ($${(drink.price * 0.25).toFixed(2)})`);
         return;
       }
 
@@ -77,10 +77,10 @@ const VendingMachine = () => {
         setDrinks(prev => prev.map((drink, index) => 
           index === id ? { ...drink, quantity: remainingQuantity } : drink
         ));
-        setMessage(`Enjoy your ${drinks[id].name}! ${drinks[id].emoji}`);
+        setMessage(`✅ Enjoy your ${drinks[id].name}! ${drinks[id].emoji}`);
       }
     } catch (error) {
-      setMessage('Error processing purchase');
+      setMessage('❌ Error processing purchase');
     }
   };
 
