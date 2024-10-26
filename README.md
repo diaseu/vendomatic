@@ -2,6 +2,8 @@
 
 A vending machine service for purchasing beverages with coins. The application is a full Javascript project, consists of a Node.js/Express backend server and a React frontend interface.
 
+![Demonstration of Vend-O-Matic](https://i.imgur.com/foov0C6.gif)
+
 ## Features
 
 - Accepts quarters for payment (one at a time)
