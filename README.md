@@ -2,9 +2,26 @@
 
 A vending machine service for purchasing beverages with coins. The application is a full Javascript project, consists of a Node.js/Express backend server and a React frontend interface.
 
-![Demonstration of Vend-O-Matic](https://i.imgur.com/foov0C6.gif)
+![Demonstration of Vend-O-Matic](https://i.imgur.com/mEa0J2c.gif)
 
-## Features
+## Table of Contents
+
+1. **[About Vend-O-Matic](#about-vend-o-matic)**
+   * **[Features](#features)**
+   * **[Beverages](#beverages)**
+   * **[Code Structure](#code-structure)**
+2. **[Installation](#installation)**
+   * **[Backend Setup](#backend-setup)**
+   * **[Frontend Setup](#frontend-setup)**
+3. **[Running the Application](#running-the-application)**
+4. **[Making Changes](#making-changes)**
+   * **[Frontend Setup](#frontend-setup)**
+5. **[Libraries / Dependencies used](#how-to-use)**
+6. **[Initial Gameplan Used](#initial-gameplan-used)**
+
+## About Vend-O-Matic
+
+### Features
 
 - Accepts quarters for payment (one at a time)
 - Displays available beverages and their prices
@@ -13,7 +30,7 @@ A vending machine service for purchasing beverages with coins. The application i
 - Real-time inventory updates
 - Responsive web interface
 
-## Beverages Available
+### Beverages
 
 - Cola (50¢) 🥤
 - Sprite (50¢) 🥂
@@ -81,15 +98,16 @@ npm run dev
    - Multiple quarters can be inserted
 
 2. Purchase a Beverage:
-   - Each beverage costs 50¢ (2 quarters) - This can be changed [see #making-changes below]
+   - Each beverage costs 50¢ (2 quarters) - This can be changed [see ['Making Changes'](#making-changes)]
    - Click on a beverage from the Drink Menu to purchase
    - If insufficient funds, you'll get a more coins needed message and coins will be returned
    - Change is automatically returned if extra quarters were inserted
 
 3. Inventory:
-   - Each beverage starts with 5 units in stock - This can be changed [see #making-changes below]
+   - Each beverage starts with 5 units in stock - This can be changed [see ['Making Changes'](#making-changes)]
    - Current inventory is displayed for each item
    - Out-of-stock items are disabled
+   - Inventory persists until server is restarted
 
 ### Making Changes
 
