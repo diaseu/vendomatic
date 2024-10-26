@@ -8,8 +8,10 @@ A vending machine service for purchasing beverages with coins. The application i
 
 1. **[About Vend-O-Matic](#about-vend-o-matic)**
    * **[Features](#features)**
+   * **[Criteria Met](#critera-met)**
+   * **[API Routes](#api-routes)**
    * **[Beverages](#beverages)**
-   * **[Code Structure](#code-structure)**
+   * **[Core Code Structure](#core-code-structure)**
 2. **[Installation](#installation)**
    * **[Backend Setup](#backend-setup)**
    * **[Frontend Setup](#frontend-setup)**
@@ -30,28 +32,62 @@ A vending machine service for purchasing beverages with coins. The application i
 - Real-time inventory updates
 - Responsive web interface
 
+### Critera Met
+1. The machine only accepts US quarters - you physically cannot put anything else in, and you can only put one coin in at a time.
+2. Purchase price of an item is two US quarters.
+3. Machine only holds five of each of the three beverages available to purchase in its inventory.
+4. Machine will accept more than the purchase price of coins, but will only dispense a single beverage per transaction.
+5. Upon transaction completion, any unused quarters must be dispensed back to the customer.
+6. All test interactions will be performed with a single content type of “application/json”.
+7. The API routes include the 7 required routes. (Note: I elected to add one additional route.) 
+
+### API Routes
+- [Required] `PUT /` - Insert a quarter 
+  - Request body: `{"coin": 1}`
+  - Response: 204 No Content
+  - Header: X-Coins (number of coins accepted)
+
+- [Required] `DELETE /` - Return inserted coins
+  - Response: 204 No Content
+  - Header: X-Coins (number of coins returned)
+
+- [Required] `GET /inventory` - Get current inventory levels
+  - Response: 200 OK
+  - Body: Array of integers representing quantities
+
+- [Elected]] `GET /inventory/details` - Get beverage details
+  - Response: 200 OK
+  - Body: Array of objects with name, price, and emoji
+
+- [Required] `PUT /inventory/:id` - Purchase a beverage
+  - Response: 
+    - 200 OK (successful purchase)
+    - 403 Forbidden (insufficient funds)
+    - 404 Not Found (invalid selection or out of stock)
+  - Headers: 
+    - X-Coins (change returned)
+    - X-Inventory-Remaining (updated quantity)
+
+
 ### Beverages
 
 - Cola (50¢) 🥤
 - Sprite (50¢) 🥂
 - Water (50¢) 💧
 
-### Code Structure
+### Core Code Structure
 
 ```
 vend-o-matic/
 ├── server/
 │   ├── services/
 │   │   └── vendingMachine.js     # Business logic
-│   ├── tests/
-│   │   └── vendingMachine.test.js
-│   └── server.js                 # API routes
+│   └── server.js                 # API routes + Data Model
 └── client/
-    ├── app/
+    ├── src/
     │   ├── components/
     │   │   └── VendingMachine.js # Frontend
-    │   └── page.js
-    └── public/
+    │   └── index.js
 ```
 
 ## Installation
