@@ -4,10 +4,15 @@ const vendingMachine = require('./services/vendingMachine');
 
 const app = express();
 
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+
 app.use(express.json());
 // Note: There looks to be two different kinds of response header: X-Coins and X-Inventory-Remaining
 app.use(cors({
-    exposedHeaders: ['X-Coins', 'X-Inventory-Remaining']
+    origin: FRONTEND_URL,
+    exposedHeaders: ['X-Coins', 'X-Inventory-Remaining'],
+    credentials: true,
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']
 }));
 
 // Define Necessary Routes here
@@ -80,7 +85,8 @@ app.put('/inventory/:id', (req, res) => {
     });
 })
 
+const PORT = process.env.PORT || 3001
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
     console.log('Server running on port 3001');
   });

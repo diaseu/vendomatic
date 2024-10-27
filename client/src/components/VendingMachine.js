@@ -8,11 +8,23 @@ const VendingMachine = () => {
   const [change, setChange] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+
   const fetchData = async () => {
     try {
       const [inventoryRes, detailsRes] = await Promise.all([
-        fetch('http://localhost:3001/inventory'),
-        fetch('http://localhost:3001/inventory/details')
+        fetch(`${API_URL}/inventory`, {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }),
+        fetch(`${API_URL}/inventory/details`, {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
       ]);
 
       const quantities = await inventoryRes.json();  // [5, 5, 5]
@@ -37,9 +49,12 @@ const VendingMachine = () => {
 
   const insertQuarter = async () => {
     try {
-      const res = await fetch('http://localhost:3001/', {
+      const res = await fetch(`${API_URL}/`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ coin: 1 })
       });
       const coins = parseInt(res.headers.get('X-Coins'));
@@ -53,8 +68,12 @@ const VendingMachine = () => {
 
   const purchase = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3001/inventory/${id}`, {
-        method: 'PUT'
+      const res = await fetch(`${API_URL}/inventory/${id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
 
       const returnedCoins = parseInt(res.headers.get('X-Coins'));
@@ -93,7 +112,7 @@ const VendingMachine = () => {
   }
 
   return (
-    <div className="max-w-3xl bg-gray-200 rounded-lg shadow p-6 mx-auto">
+    <div className="max-w-3xl bg-gray-300 rounded-lg shadow p-6 mx-auto">
       {/* Header */}
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold">Dia's Vend-O-Matic</h1>
@@ -101,23 +120,6 @@ const VendingMachine = () => {
       
       {/* Main container with responsive flex */}
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Drink Menu - takes up half width on medium screens and up */}
-        <div className="w-full md:w-1/2 bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl text-center font-bold mb-4">Drink Menu</h2>
-          <div className="flex flex-col gap-3">
-            {drinks.map((drink, index) => (
-              <button
-                key={index}
-                onClick={() => purchase(index)}
-                disabled={drink.quantity === 0}
-                className="p-3 bg-gray-100 rounded hover:bg-gray-200 disabled:opacity-50 text-left"
-              >
-                <div className="text-lg text-center">{drink.emoji} {drink.name} - ${(drink.price * 0.25).toFixed(2)}</div>
-                <div className="text-sm text-center text-gray-600">({drink.quantity} left)</div>
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* Coin Interface - takes up half width on medium screens and up */}
         <div className="w-full md:w-1/2 bg-white rounded-lg shadow p-6">
@@ -151,6 +153,23 @@ const VendingMachine = () => {
                 <div>{change} quarters (${(change * 0.25).toFixed(2)})</div>
               </div>
             )}
+          </div>
+        </div>
+        {/* Drink Menu - takes up half width on medium screens and up */}
+        <div className="w-full md:w-1/2 bg-white rounded-lg shadow p-6">
+          <h2 className="text-xl text-center text-black font-bold mb-4">Drink Menu</h2>
+          <div className="flex flex-col gap-3">
+            {drinks.map((drink, index) => (
+              <button
+                key={index}
+                onClick={() => purchase(index)}
+                disabled={drink.quantity === 0}
+                className="p-3 bg-gray-300 rounded hover:bg-gray-200 disabled:opacity-50 text-left"
+              >
+                <div className="text-lg text-center">{drink.emoji} {drink.name} - ${(drink.price * 0.25).toFixed(2)}</div>
+                <div className="text-sm text-center text-gray-600">({drink.quantity} left)</div>
+              </button>
+            ))}
           </div>
         </div>
       </div>
