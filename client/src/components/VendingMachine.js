@@ -112,20 +112,20 @@ const VendingMachine = () => {
   }
 
   return (
-    <div className="max-w-3xl bg-gray-300 rounded-lg shadow p-6 mx-auto">
+    <div className="max-w-3xl bg-midground2 rounded-lg shadow p-6 mx-auto">
       {/* Header */}
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold">Dia's Vend-O-Matic</h1>
+        <h1 className="text-2xl text-foreground font-bold">Dia's Vend-O-Matic</h1>
       </div>
       
       {/* Main container with responsive flex */}
       <div className="flex flex-col md:flex-row gap-6">
 
         {/* Coin Interface - takes up half width on medium screens and up */}
-        <div className="w-full md:w-1/2 bg-white rounded-lg shadow p-6">
+        <div className="w-full md:w-1/2 rounded-lg bg-background shadow p-6">
           <h2 className="text-xl text-center font-bold mb-4">Insert Coins First</h2>
           <div className="space-y-4">
-            <div className="text-sm text-gray-500 text-center">
+            <div className="text-sm text-foreground2 text-center">
               <p>Only quarters accepted</p>
               <p>Any change auto-returned</p>
             </div>
@@ -156,18 +156,18 @@ const VendingMachine = () => {
           </div>
         </div>
         {/* Drink Menu - takes up half width on medium screens and up */}
-        <div className="w-full md:w-1/2 bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl text-center text-black font-bold mb-4">Drink Menu</h2>
+        <div className="w-full md:w-1/2 bg-background rounded-lg shadow p-6">
+          <h2 className="text-xl text-center font-bold mb-4">Drink Menu</h2>
           <div className="flex flex-col gap-3">
             {drinks.map((drink, index) => (
               <button
                 key={index}
                 onClick={() => purchase(index)}
                 disabled={drink.quantity === 0}
-                className="p-3 bg-gray-300 rounded hover:bg-gray-200 disabled:opacity-50 text-left"
+                className="p-3 bg-midground rounded hover:bg-gray-200 disabled:opacity-50 text-left"
               >
                 <div className="text-lg text-center">{drink.emoji} {drink.name} - ${(drink.price * 0.25).toFixed(2)}</div>
-                <div className="text-sm text-center text-gray-600">({drink.quantity} left)</div>
+                <div className="text-sm text-center text-foreground2">({drink.quantity} left)</div>
               </button>
             ))}
           </div>

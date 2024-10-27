@@ -10,6 +10,9 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        midground: "var(--midground)",
+        foreground2: "var(--foreground2)",
+        midground2: "var(--midground2)",
       },
     },
   },
